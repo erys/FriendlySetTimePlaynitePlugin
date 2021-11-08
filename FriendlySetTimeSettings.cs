@@ -1,6 +1,10 @@
 ﻿using Playnite.SDK;
 using Playnite.SDK.Data;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FriendlySetTime
 {
@@ -20,7 +24,7 @@ namespace FriendlySetTime
 
     public class FriendlySetTimeSettingsViewModel : ObservableObject, ISettings
     {
-        private readonly FriendlySetPlugin plugin;
+        private readonly FriendlySetTime plugin;
         private FriendlySetTimeSettings editingClone { get; set; }
 
         private FriendlySetTimeSettings settings;
@@ -34,7 +38,7 @@ namespace FriendlySetTime
             }
         }
 
-        public FriendlySetTimeSettingsViewModel(FriendlySetPlugin plugin)
+        public FriendlySetTimeSettingsViewModel(FriendlySetTime plugin)
         {
             // Injecting your plugin instance is required for Save/Load method because Playnite saves data to a location based on what plugin requested the operation.
             this.plugin = plugin;
