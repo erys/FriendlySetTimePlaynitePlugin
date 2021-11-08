@@ -4,14 +4,13 @@ using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace FriendlySetTime
 {
-    public class FriendlySetTime : GenericPlugin
+    // renamed this from FriendlySetTime because visual studio was getting confused about the same namespace+name
+    public class FriendlySetPlugin : GenericPlugin
     {
         private static readonly ILogger logger = LogManager.GetLogger();
 
@@ -19,13 +18,54 @@ namespace FriendlySetTime
 
         public override Guid Id { get; } = Guid.Parse("1f05ed2e-f22d-45e0-8e81-16378a8464c7");
 
-        public FriendlySetTime(IPlayniteAPI api) : base(api)
+        public FriendlySetPlugin(IPlayniteAPI api) : base(api)
         {
-            settings = new FriendlySetTimeSettingsViewModel(this);
             Properties = new GenericPluginProperties
             {
-                HasSettings = true
+                HasSettings = false
             };
+        }
+
+        public override IEnumerable<GameMenuItem> GetGameMenuItems(GetGameMenuItemsArgs args)
+        {
+            List<GameMenuItem> gameMenuItems = new List<GameMenuItem>();
+            if (args.Games.Count == 1)
+            {
+                gameMenuItems.Add(new GameMenuItem
+                {
+                    Description = "Set Playtime",
+                    Action = (GameMenuItem) =>
+                    {
+                        DoSetTime(args.Games[0]);
+                    }
+                });
+            }
+            return gameMenuItems;
+        }
+
+        private void DoSetTime(Game game)
+        {
+            try
+            {
+                SetTimeWindow view = new SetTimeWindow(this, game);
+                var window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
+                {
+                    ShowMinimizeButton = false,
+                });
+
+                window.Height = 110;
+                window.Width = 520;
+                window.Title = "Set Time";
+                window.Content = view;
+
+                window.Owner = PlayniteApi.Dialogs.GetCurrentAppWindow();
+                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+                window.ShowDialog();
+            } catch (Exception E) {
+                logger.Error(E, "Error during creatin set time window");
+                PlayniteApi.Dialogs.ShowErrorMessage(E.Message, "Error during set time");
+            }
         }
 
         public override void OnGameInstalled(OnGameInstalledEventArgs args)
