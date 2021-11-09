@@ -63,6 +63,7 @@
     <None Include="extension.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="FriendlySetTime.yaml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

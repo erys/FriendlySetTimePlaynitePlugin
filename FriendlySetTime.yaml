@@ -1,0 +1,8 @@
+AddonId: 'FriendlySetTime_1f05ed2e-f22d-45e0-8e81-16378a8464c7'
+Packages:
+  - Version: 0.2
+    RequiredApiVersion: 6.1.0
+    ReleaseDate: 2021-11-09
+    PackageUrl: https://github.com/erys/FriendlySetTimePlaynitePlugin/releases/download/v0.2/FriendlySetTime_v_0_2.pext
+    Changelog:
+      - Initial Version
