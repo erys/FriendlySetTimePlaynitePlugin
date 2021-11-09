@@ -53,7 +53,7 @@ namespace FriendlySetTime
                     ShowMinimizeButton = false,
                 });
 
-                window.Height = 110;
+                window.Height = 140;
                 window.Width = 520;
                 window.Title = "Set Time";
                 window.Content = view;

@@ -22,7 +22,7 @@ namespace FriendlySetTime
                 }
                 return ValidationResult.ValidResult;
             } catch (Exception e)
-            {
+            { //TODO: this isn't working/being used
                 return new ValidationResult(false, $"{value} is not a number");
             }
         }
