@@ -12,6 +12,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
@@ -19,7 +22,7 @@
             <RowDefinition Height="35" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
             <TextBox AcceptsReturn="False" AcceptsTab="False" MaxLines="1" Name="hours" MaxLength="6" Width="100" TextAlignment="Right">
                 <TextBox.Text>
                     <Binding Path="Hours" ElementName="_window">
@@ -31,7 +34,7 @@
             </TextBox>
             <Label Margin="5,0,0,0" Content="hours"/>
         </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal">
             <TextBox AcceptsReturn="False" AcceptsTab="False" MaxLines="1" Name="minutes" MaxLength="6" Width="100" TextAlignment="Right">
                 <TextBox.Text>
                     <Binding Path="Minutes" ElementName="_window">
@@ -43,7 +46,7 @@
             </TextBox>
             <Label Margin="5,0,0,0" Content="minutes"/>
         </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
+        <StackPanel Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" Orientation="Horizontal">
             <TextBox AcceptsReturn="False" AcceptsTab="False" MaxLines="1" Name="seconds" MaxLength="10" Width="100" TextAlignment="Right">
                 <TextBox.Text>
                     <Binding Path="Seconds" ElementName="_window">
@@ -55,14 +58,24 @@
             </TextBox>
             <Label Margin="5,0,0,0" Content="seconds"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" Orientation="Horizontal">
             <CheckBox VerticalAlignment="Center" x:Name="updateStatus" IsChecked="False"/>
             <Label Content="Set status to:" Margin="5,5,0,0"/>
-            <ComboBox ItemsSource="{Binding statuses, ElementName=_window}" Name="newStatus" SelectionChanged="statusChanged" Margin="0,5,0,0"/>
+            <ComboBox ItemsSource="{Binding statuses, ElementName=_window}" Name="newStatus" SelectionChanged="StatusChanged" Margin="0,5,0,0"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
-            <Button Width="100" Margin="5,0" Content="Set" Click="Button_Click"/>
-            <Button Width="100" Margin="5,0" Content="Cancel" IsCancel="True"/>
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <CheckBox x:Name="setDate" VerticalAlignment="Center" IsChecked="False"/>
+            <Label Content="Set last played date to" Margin="5,5,0,0"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
+            <CheckBox x:Name="setToday" IsChecked="False" VerticalAlignment="Center" Margin="0,5,0,0" Checked="SetToday_Checked"/>
+            <Label Content="Today" Margin="0,5,0,0"/>
+        </StackPanel>
+        <Label Content="Other date:" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,0,0"/>
+        <DatePicker Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,5,0,0" Name="newDate" SelectedDateChanged="NewDate_SelectedDateChanged"/>
+        <StackPanel Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+            <Button Width="60" Margin="5,0" Content="Set" Click="Button_Click" IsDefault="True"/>
+            <Button Width="80" Margin="5,0" Content="Cancel" IsCancel="True"/>
         </StackPanel>
     </Grid>
 </UserControl>

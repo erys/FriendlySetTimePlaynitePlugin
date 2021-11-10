@@ -36,8 +36,8 @@ namespace FriendlySetTime
             {
                 statuses.Add(completionStatus.Name);
             }
-
             InitializeComponent();
+            newDate.SelectedDate = game.LastActivity;
             newStatus.SelectedIndex = statuses.IndexOf(game.CompletionStatus.Name);
         }
 
@@ -56,6 +56,10 @@ namespace FriendlySetTime
                     string status = newStatus.SelectedItem.ToString();
                     game.CompletionStatusId = plugin.PlayniteApi.Database.CompletionStatuses.Where(x => x.Name == status).DefaultIfEmpty(game.CompletionStatus).First().Id;
                 }
+                if ((bool)setDate.IsChecked)
+                {
+                    game.LastActivity = newDate.SelectedDate;
+                }
                 plugin.PlayniteApi.Database.Games.Update(game);
                 ((Window)this.Parent).Close();
             } catch (Exception E)
@@ -65,11 +69,35 @@ namespace FriendlySetTime
             }
         }
 
-        private void statusChanged(object sender, SelectionChangedEventArgs e)
+        private void StatusChanged(object sender, SelectionChangedEventArgs e)
         {
             if (game.CompletionStatus.Name != newStatus.SelectedItem.ToString())
             {
                 updateStatus.IsChecked = true;
+            }
+        }
+
+        private void DidDateChange()
+        {
+            if (!((game.LastActivity.HasValue && newDate.SelectedDate.HasValue) &&
+                newDate.SelectedDate.Value.Date.Equals(game.LastActivity.Value.Date)))
+            {
+                setDate.IsChecked = true;
+            }
+        }
+
+        private void SetToday_Checked(object sender, RoutedEventArgs e)
+        {
+            newDate.SelectedDate = DateTime.Today;
+            DidDateChange();
+        }
+
+        private void NewDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DidDateChange();
+            if (!(newDate.SelectedDate.HasValue && newDate.SelectedDate.Value.Date.Equals(DateTime.Today.Date)))
+            {
+                setToday.IsChecked = false;
             }
         }
     }
