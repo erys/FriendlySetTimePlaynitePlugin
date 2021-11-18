@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:c="clr-namespace:FriendlySetTime"
              mc:Ignorable="d" 
-             d:DesignHeight="110" d:DesignWidth="500"
+             d:DesignHeight="145" d:DesignWidth="500"
              x:Name="_window">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
@@ -19,7 +19,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
-            <RowDefinition Height="35" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
@@ -58,24 +59,26 @@
             </TextBox>
             <Label Margin="5,0,0,0" Content="seconds"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal">
             <CheckBox VerticalAlignment="Center" x:Name="updateStatus" IsChecked="False"/>
             <Label Content="Set status to:" Margin="5,5,0,0"/>
             <ComboBox ItemsSource="{Binding statuses, ElementName=_window}" Name="newStatus" SelectionChanged="StatusChanged" Margin="0,5,0,0"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <CheckBox x:Name="setDate" VerticalAlignment="Center" IsChecked="False"/>
-            <Label Content="Set last played date to" Margin="5,5,0,0"/>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
+        <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+            <CheckBox x:Name="setDate" VerticalAlignment="Center" IsChecked="False" DockPanel.Dock="Left"/>
+            <Label Content="Set last played date to" Margin="5,5,0,0" DockPanel.Dock="Left"/>
+        </DockPanel>
+        <DockPanel Grid.Row="2" Grid.Column="2">
             <CheckBox x:Name="setToday" IsChecked="False" VerticalAlignment="Center" Margin="0,5,0,0" Checked="SetToday_Checked"/>
-            <Label Content="Today" Margin="0,5,0,0"/>
-        </StackPanel>
-        <Label Content="Other date:" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,0,0"/>
-        <DatePicker Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,5,0,0" Name="newDate" SelectedDateChanged="NewDate_SelectedDateChanged"/>
-        <StackPanel Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
-            <Button Width="60" Margin="5,0" Content="Set" Click="Button_Click" IsDefault="True"/>
-            <Button Width="80" Margin="5,0" Content="Cancel" IsCancel="True"/>
+            <Label Content="Today" Margin="0,5,0,0" DockPanel.Dock="Right"/>
+        </DockPanel>
+        <DockPanel Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3">
+            <Label Content="Other date:" Margin="0,5,0,0"/>
+            <DatePicker Margin="0,5,0,0" Name="newDate" SelectedDateChanged="NewDate_SelectedDateChanged" Width="120" DockPanel.Dock="Right"/>
+        </DockPanel>
+        <StackPanel Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Width="60" Margin="5,0,5,0" Content="Set" Click="Button_Click" IsDefault="True"/>
+            <Button Width="80" Margin="5,0,5,0" Content="Cancel" IsCancel="True"/>
         </StackPanel>
     </Grid>
 </UserControl>
