@@ -32,13 +32,25 @@ namespace FriendlySetTime
             Hours = (bigMinutes / 60).ToString();
             this.plugin = plugin;
 
+            var completionStatusNone = "";
+            statuses.Add(completionStatusNone);
             foreach (CompletionStatus completionStatus in plugin.PlayniteApi.Database.CompletionStatuses)
             {
                 statuses.Add(completionStatus.Name);
             }
             InitializeComponent();
             newDate.SelectedDate = game.LastActivity;
-            newStatus.SelectedIndex = statuses.IndexOf(game.CompletionStatus.Name);
+
+            // Use completion status none if it's not set.
+            var currentCompletionStatus = game.CompletionStatus?.Name;
+            if (currentCompletionStatus != null)
+            {
+                newStatus.SelectedIndex = statuses.IndexOf(currentCompletionStatus);
+            }
+            else
+            {
+                newStatus.SelectedIndex = statuses.IndexOf(completionStatusNone);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -54,7 +66,14 @@ namespace FriendlySetTime
                 if ((bool)updateStatus.IsChecked)
                 {
                     string status = newStatus.SelectedItem.ToString();
-                    game.CompletionStatusId = plugin.PlayniteApi.Database.CompletionStatuses.Where(x => x.Name == status).DefaultIfEmpty(game.CompletionStatus).First().Id;
+                    if (status != "")
+                    {
+                        game.CompletionStatusId = plugin.PlayniteApi.Database.CompletionStatuses.Where(x => x.Name == status).DefaultIfEmpty(game.CompletionStatus).First().Id;
+                    }
+                    else
+                    {
+                        game.CompletionStatusId = Guid.Empty;
+                    }
                 }
                 if ((bool)setDate.IsChecked)
                 {
@@ -62,7 +81,8 @@ namespace FriendlySetTime
                 }
                 plugin.PlayniteApi.Database.Games.Update(game);
                 ((Window)this.Parent).Close();
-            } catch (Exception E)
+            }
+            catch (Exception E)
             {
                 logger.Error(E, "Error when parsing time");
                 plugin.PlayniteApi.Dialogs.ShowErrorMessage(E.Message, "Error when parsing time");
@@ -71,9 +91,22 @@ namespace FriendlySetTime
 
         private void StatusChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (game.CompletionStatus.Name != newStatus.SelectedItem.ToString())
+            // Detect if completion status wasn't set.
+            var currentCompletionStatus = game.CompletionStatus?.Name;
+            var completionStatusNone = "";
+            if (currentCompletionStatus != null)
             {
-                updateStatus.IsChecked = true;
+                if (currentCompletionStatus != newStatus.SelectedItem.ToString())
+                {
+                    updateStatus.IsChecked = true;
+                }
+            }
+            else
+            {
+                if (completionStatusNone != newStatus.SelectedItem.ToString())
+                {
+                    updateStatus.IsChecked = true;
+                }
             }
         }
 
