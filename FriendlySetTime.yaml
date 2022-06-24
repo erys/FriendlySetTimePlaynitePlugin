@@ -1,5 +1,11 @@
 AddonId: 'FriendlySetTime_1f05ed2e-f22d-45e0-8e81-16378a8464c7'
 Packages:
+  - Version: 0.4
+    RequiredApiVersion: 6.1.0
+    ReleaseDate: 2022-06-24
+    PackageUrl: https://github.com/erys/FriendlySetTimePlaynitePlugin/releases/download/v0.4/FriendlySetTime_1f05ed2e-f22d-45e0-8e81-16378a8464c7_0_4.pext
+    Changelog:
+      - Fixed issue with empty completion status and added ability to unset completion status (by CanRanBan)
   - Version: 0.3
     RequiredApiVersion: 6.1.0
     ReleaseDate: 2021-11-17
