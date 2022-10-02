@@ -53,21 +53,7 @@ namespace FriendlySetTime
                     ShowMinimizeButton = false,
                 });
 
-                var themeName = PlayniteApi.ApplicationSettings.DesktopTheme;
-
-                var comparisonResult = themeName == "Stardust 2.0_1fb333b2-255b-43dd-aec1-8e2f2d5ea002"
-                    || themeName == "Mythic_e231056c-4fa7-49d8-ad2b-0a6f1c589eb8";
-
-                if (comparisonResult)
-                {
-                    window.Height = 195;
-                }
-                else
-                {
-                    window.Height = 170;
-                }
-
-                window.Width = 520;
+                window.SizeToContent = SizeToContent.WidthAndHeight;
                 window.Title = "Set Time";
                 window.Content = view;
 
