@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <TextBox AcceptsReturn="False" AcceptsTab="False" MaxLines="1" Name="hours" MaxLength="6" Width="100" TextAlignment="Right">
+            <TextBox AcceptsReturn="False" AcceptsTab="False" MaxLines="1" Name="hours" MaxLength="6" Width="100" TextAlignment="Right" LostFocus="hours_LostFocus">
                 <TextBox.Text>
                     <Binding Path="Hours" ElementName="_window">
                         <Binding.ValidationRules >
@@ -36,7 +36,7 @@
             <Label Margin="5,0,0,0" Content="hours"/>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <TextBox AcceptsReturn="False" AcceptsTab="False" MaxLines="1" Name="minutes" MaxLength="6" Width="100" TextAlignment="Right">
+            <TextBox AcceptsReturn="False" AcceptsTab="False" MaxLines="1" Name="minutes" MaxLength="6" Width="100" TextAlignment="Right" LostFocus="minutes_LostFocus">
                 <TextBox.Text>
                     <Binding Path="Minutes" ElementName="_window">
                         <Binding.ValidationRules>
@@ -48,7 +48,7 @@
             <Label Margin="5,0,0,0" Content="minutes"/>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <TextBox AcceptsReturn="False" AcceptsTab="False" MaxLines="1" Name="seconds" MaxLength="10" Width="100" TextAlignment="Right">
+            <TextBox AcceptsReturn="False" AcceptsTab="False" MaxLines="1" Name="seconds" MaxLength="10" Width="100" TextAlignment="Right" LostFocus="seconds_LostFocus">
                 <TextBox.Text>
                     <Binding Path="Seconds" ElementName="_window">
                         <Binding.ValidationRules>

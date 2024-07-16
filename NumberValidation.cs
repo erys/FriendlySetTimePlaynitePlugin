@@ -15,7 +15,7 @@ namespace FriendlySetTime
         {
             try
             {
-                int number = Int32.Parse((String)value);
+                float number = float.Parse((String)value);
                 if (number < 0)
                 {
                     return new ValidationResult(false, "value cannot be less than 0");

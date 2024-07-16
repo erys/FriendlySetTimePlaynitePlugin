@@ -133,5 +133,37 @@ namespace FriendlySetTime
                 setToday.IsChecked = false;
             }
         }
+
+        private void hours_LostFocus(object sender, RoutedEventArgs e)
+        {
+            float hrs = float.Parse(hours.Text.Trim());
+
+            if (hrs % 1 != 0)
+            {
+                int mins = (int)(hrs % 1 * 60);
+                hours.Text = hrs.ToString("F0");
+                minutes.Text = mins.ToString();
+            }
+        }
+
+        private void minutes_LostFocus(object sender, RoutedEventArgs e)
+        {
+            float mins = float.Parse(minutes.Text.Trim());
+            if (mins % 1 != 0)
+            {
+                int scnds = (int)(mins % 1 * 60);
+                minutes.Text = mins.ToString("F0");
+                seconds.Text = scnds.ToString();
+            }
+        }
+
+        private void seconds_LostFocus(object sender, RoutedEventArgs e)
+        {
+            float scnds = float.Parse(seconds.Text.Trim());
+            if (scnds % 1 != 0)
+            {
+                seconds.Text = scnds.ToString("F0");
+            }
+        } 
     }
 }
